@@ -1,4 +1,5 @@
 # Baltic Beyblade Association (BBA) Website
+BBA account system testing.
 
 A clean, responsive starter website for the Baltic Beyblade Association, made with plain HTML, CSS, and JavaScript. No build tools or external dependencies are needed.
 
