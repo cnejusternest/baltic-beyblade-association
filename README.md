@@ -1,5 +1,4 @@
 # Baltic Beyblade Association (BBA) Website
-BBA authentication configuration updated.
 A clean, responsive starter website for the Baltic Beyblade Association, made with plain HTML, CSS, and JavaScript. No build tools or external dependencies are needed.
 
 ## How to open in VS Code
@@ -65,3 +64,4 @@ The site sorts by points automatically and gives tied scores the same rank numbe
 The tabs can be linked directly using `rankings.html#x`, `rankings.html#metal`, and `rankings.html#burst`.
 
 **Note:** This is a static site; scores and event counts do not update themselves from tournament results. There is no live database.
+BBA authentication configuration updated.
