@@ -14,7 +14,7 @@ export async function inputOf(r){
  try{return JSON.parse(t)}catch{throw Error('Invalid JSON.')}
 }
 export async function sha(s){return hex(new Uint8Array(await crypto.subtle.digest('SHA-256',enc.encode(s))))}
-async function derive(password,salt){const key=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveBits']);return hex(new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:fromHex(salt),iterations:600000},key,256)))}
+async function derive(password,salt){const key=await crypto.subtle.importKey('raw',enc.encode(password),'PBKDF2',false,['deriveBits']);return hex(new Uint8Array(await crypto.subtle.deriveBits({name:'PBKDF2',hash:'SHA-256',salt:fromHex(salt),iterations:100000},key,256)))}
 export async function hashPassword(p){const salt=random(16);return {salt,hash:await derive(p,salt)}}
 export async function verifyPassword(p,salt,expected){const got=fromHex(await derive(p,salt));const want=fromHex(expected);if(got.length!==32||want.length!==32)return false;let d=0;for(let i=0;i<32;i++)d|=got[i]^want[i];return d===0}
 export async function rateLimit(db,r,purpose,max,seconds){
