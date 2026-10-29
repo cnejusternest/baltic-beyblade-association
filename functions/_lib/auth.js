@@ -33,5 +33,5 @@ export async function createSession(db,id){const token=random(32);await db.prepa
 export const sessionCookie=t=>`${COOKIE}=${t}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${MAXAGE}`;
 export const clearCookie=()=>`${COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`;
 function getToken(r){return (r.headers.get('Cookie')||'').match(/(?:^|;\s*)__Host-bba_session=([a-f0-9]{64})(?:;|$)/)?.[1]}
-export async function userFor(db,r){const token=getToken(r);if(!token)return null;return db.prepare('SELECT u.username,u.email,u.country,u.email_verified FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?').bind(await sha(token),Math.floor(Date.now()/1000)).first()}
+export async function userFor(db,r){const token=getToken(r);if(!token)return null;return db.prepare('SELECT u.username,u.email,u.country,u.email_verified,u.created_at FROM sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=? AND s.expires_at>?').bind(await sha(token),Math.floor(Date.now()/1000)).first()}
 export async function logout(db,r){const t=getToken(r);if(t)await db.prepare('DELETE FROM sessions WHERE token_hash=?').bind(await sha(t)).run()}
