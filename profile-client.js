@@ -102,7 +102,7 @@
       setText('[data-member-since]', Number.isFinite(joined) && joined > 0
         ? new Date(joined * 1000).toLocaleDateString('en-GB', {month:'long', year:'numeric'})
         : 'BBA member');
-      populateCountries(user.country);
+      if (select) populateCountries(user.country);
 
       actions.hidden = true;
       status.hidden = true;

@@ -281,7 +281,7 @@ if (tournamentLists.length) {
   if (!header) return;
 
   const guestLinks = Array.from(header.querySelectorAll('[data-auth-guest]'));
-  const profileLinks = Array.from(header.querySelectorAll('[data-auth-profile]'));
+  const profileLinks = Array.from(header.querySelectorAll('[data-auth-profile], [data-auth-settings]'));
   if (!guestLinks.length || !profileLinks.length) return;
 
   const currentPage = location.pathname.split('/').pop() || 'index.html';

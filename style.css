@@ -307,3 +307,19 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   .header-inner > .header-account { gap: 5px; min-width: 0; }
   .header-inner > .header-account a { padding: 9px 10px; font-size: 12px; }
 }
+
+/* Settings cog is the last control, immediately after the Profile button. */
+.header-inner > .header-account .nav-auth-settings {
+  display:inline-flex; flex:0 0 42px; width:42px; height:42px;
+  align-items:center;justify-content:center;padding:0;
+  border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);
+  border-radius:8px;
+}
+.header-inner > .header-account .nav-auth-settings svg {width:20px;height:20px;display:block;}
+.header-inner > .header-account .nav-auth-settings[hidden]{display:none!important;}
+.header-inner > .header-account .nav-auth-settings:hover,
+.header-inner > .header-account .nav-auth-settings:focus-visible{background:var(--hover);color:var(--ink);}
+@media(max-width:640px){
+  .header-inner > .header-account .nav-auth-settings {width:36px;height:36px;flex-basis:36px;}
+  .header-inner > .header-account .nav-auth-settings svg {width:18px;height:18px;}
+}
