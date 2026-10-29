@@ -2,11 +2,12 @@ CREATE TABLE IF NOT EXISTS users (
  id TEXT PRIMARY KEY,
  username TEXT NOT NULL COLLATE NOCASE UNIQUE CHECK(length(username) BETWEEN 3 AND 24),
  email TEXT NOT NULL COLLATE NOCASE UNIQUE,
- country TEXT NOT NULL CHECK(country IN ('LV','LT','EE')),
+ country TEXT NOT NULL CHECK(length(country)=2 AND country GLOB '[A-Z][A-Z]'),
  password_salt TEXT NOT NULL,
  password_hash TEXT NOT NULL,
  email_verified INTEGER NOT NULL DEFAULT 0,
- created_at INTEGER NOT NULL DEFAULT (unixepoch())
+ created_at INTEGER NOT NULL DEFAULT (unixepoch()),
+ avatar_key TEXT DEFAULT NULL
 );
 CREATE TABLE IF NOT EXISTS sessions (
  token_hash TEXT PRIMARY KEY,
