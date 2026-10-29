@@ -39,3 +39,51 @@
  .profile-head{padding:20px}
  .profile-avatar{width:70px;height:70px;font-size:23px}
 }
+
+/* Player profile layout — BBA black/white theme. */
+.profile-subtitle { margin:0; font-size:15px; }
+.profile-eyebrow { font-size:11px; font-weight:800; letter-spacing:.14em; color:var(--muted); margin-bottom:6px; }
+.bba-profile .profile-head { padding:28px; }
+.bba-profile .profile-head .profile-avatar { width:106px;height:106px;font-size:32px; }
+.profile-country-line { font-weight:600; color:var(--ink); font-size:15px; }
+.profile-country-line span:first-child { color:var(--muted); }
+.profile-member-line { color:var(--muted);font-size:13px; }
+.profile-identity .profile-avatar-label { display:block; margin-top:10px; }
+.profile-section { margin:28px 0; }
+.profile-section .section-head { margin-bottom:14px; }
+.profile-rank-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr));gap:15px; }
+.profile-rank-card { border:1px solid var(--line); border-radius:var(--radius); padding:23px; background:var(--surface); }
+.profile-rank-format { color:var(--muted); display:block; font-size:11px; font-weight:800;letter-spacing:.1em; margin-bottom:16px; }
+.profile-rank-card strong { display:block; font-size:24px; letter-spacing:-.02em; margin-bottom:8px; }
+.profile-rank-card p { font-size:13px; line-height:1.6; margin:0; }
+.profile-settings { padding:28px; }
+.profile-settings h2 { font-size:23px;margin-bottom:6px; }
+.profile-settings .profile-details { max-width:600px; grid-template-columns:minmax(0,1fr) minmax(0,1fr); margin:23px 0; }
+.profile-settings .profile-details dd { text-align:left; font-weight:600; }
+.profile-country-settings { border-top:1px solid var(--line); padding-top:22px; }
+.profile-country-settings label { font-size:15px; margin-bottom:4px; }
+.profile-country-settings p { margin-bottom:12px; }
+.profile-country-controls { display:flex; gap:12px; align-items:center; }
+.profile-country-controls select { margin:0; width:min(100%,390px); }
+.profile-country-controls button { white-space:nowrap; }
+.profile-bottom { display:flex; gap:20px; align-items:center; justify-content:space-between; border-top:1px solid var(--line); padding-top:22px; margin:28px 0 16px; }
+.profile-bottom .btn { flex-shrink:0; }
+.profile-recovery { display:flex;gap:12px;flex-wrap:wrap;align-items:center; margin-top:15px; }
+.profile-recovery[hidden], .bba-profile [data-details][hidden] { display:none!important; }
+.bba-profile [data-profile-status][hidden] { display:none!important; }
+@media(max-width:800px) {
+ .profile-rank-grid { grid-template-columns:1fr; }
+ .profile-rank-card { padding:17px 20px; }
+ .profile-rank-format { margin-bottom:7px; }
+ .profile-rank-card strong { font-size:20px; }
+}
+@media(max-width:550px) {
+ .bba-profile .profile-head { padding:18px;gap:16px; }
+ .bba-profile .profile-head .profile-avatar { width:70px;height:70px;font-size:22px; }
+ .profile-identity h2 { font-size:21px; }
+ .profile-settings { padding:20px; }
+ .profile-country-controls { flex-direction:column;align-items:stretch; }
+ .profile-country-controls select { width:100%; }
+ .profile-bottom { align-items:stretch;flex-direction:column; }
+ .profile-bottom .btn {align-self:flex-start;}
+}
