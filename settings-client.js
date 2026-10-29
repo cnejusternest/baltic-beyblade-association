@@ -92,8 +92,10 @@
   }
 
   async function load(){
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),10000);
     try{
-      const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store'});
+      const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store',signal:controller.signal});
       const result=await response.json();
       if(!response.ok) throw Error(result.error||'Account service unavailable.');
       if(!result.authenticated || !result.user) {
@@ -108,9 +110,11 @@
       loading.hidden=true;
       panel.hidden=false;
     }catch(e){
-      loading.textContent='Unable to load account settings. Refresh the page or try logging in again.';
+      loading.textContent=e.name==='AbortError'
+        ? 'Account check timed out. Please refresh or log in again.'
+        : 'Unable to load account settings. Refresh the page or try logging in again.';
       showError(e.message||'Account service unavailable.');
-    }
+    }finally{clearTimeout(timeout);}
   }
   load();
 })();
