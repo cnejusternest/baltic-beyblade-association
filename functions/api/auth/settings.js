@@ -68,10 +68,13 @@ export async function onRequestPost({request,env}) {
      if(body.newPassword===body.currentPassword)
        return json({error:'Choose a different password.'},400);
      const hashed=await hashPassword(body.newPassword);
-     await env.DB.prepare('UPDATE users SET password_salt=?, password_hash=? WHERE id=?')
-       .bind(hashed.salt,hashed.hash,account.id).run();
-     // Changing a password invalidates every existing session, including this one.
-     await env.DB.prepare('DELETE FROM sessions WHERE user_id=?').bind(account.id).run();
+     // D1 batch runs atomically: do not leave old sessions active if the second
+     // query fails after the password has already changed.
+     await env.DB.batch([
+       env.DB.prepare('UPDATE users SET password_salt=?, password_hash=? WHERE id=?')
+         .bind(hashed.salt,hashed.hash,account.id),
+       env.DB.prepare('DELETE FROM sessions WHERE user_id=?').bind(account.id)
+     ]);
      return json({ok:true,reauthenticate:true},200,{'Set-Cookie':clearCookie()});
    }
 
