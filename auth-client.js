@@ -40,13 +40,19 @@
     select.value=selected||'';
   }
   if(profile) {
+    const profileStatus=document.querySelector('[data-profile-status]');
+    const loginOptions=document.querySelector('[data-profile-login]');
     const select=document.querySelector('[data-country-select]');
     countrySelector(select,'');
     try {
       const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store'});
       const data=await response.json();
       if(!response.ok) throw Error(data.error||'Profile unavailable.');
-      if(!data.authenticated){location.replace('login.html');return;}
+      if(!data.authenticated){
+        if(profileStatus) profileStatus.textContent='You are not signed in. Log in to open your profile.';
+        if(loginOptions) loginOptions.hidden=false;
+        return;
+      }
       document.querySelector('[data-username]').textContent=data.user.username;
       document.querySelector('[data-avatar]').textContent=data.user.username.slice(0,2).toUpperCase();
       document.querySelector('[data-country]').textContent=countryName(data.user.country);
@@ -54,7 +60,12 @@
       document.querySelector('[data-email-status]').textContent=data.user.emailVerified?'Verified':'Not verified';
       select.value=data.user.country;
       document.querySelector('[data-details]').hidden=false;
-    } catch(e) {setMessage(e.message||'Unable to load your profile.');}
+      if(profileStatus) profileStatus.hidden=true;
+    } catch(e) {
+      setMessage(e.message||'Unable to load your profile.');
+      if(profileStatus) profileStatus.textContent='Could not load your account. Check your connection or log in again.';
+      if(loginOptions) loginOptions.hidden=false;
+    }
     const save=document.querySelector('[data-save-profile]');
     save?.addEventListener('click',async()=>{
       if(!select.value){setMessage('Select a country.');return;}
