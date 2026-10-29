@@ -219,54 +219,90 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .event-meta span {display: inline-flex; align-items: center; gap: 5px;}
 .event-meta svg {width: 13px; height: 13px;}
 
-/* Account actions are visible even before JavaScript checks the session. */
-.nav a[hidden] {display:none !important;}
-.nav a.nav-auth-login {margin-left:6px; color:var(--ink);}
-.nav a.nav-auth-register,
-.nav a.nav-auth-profile {
-  background:var(--btn-bg);
-  color:var(--btn-ink);
-  border:1px solid var(--btn-bg);
-  border-radius:7px;
-  padding:9px 15px;
-  white-space:nowrap;
+/* Account actions live at the far right of the header, separate from site navigation. */
+.header-account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
-.nav a.nav-auth-register:hover,
-.nav a.nav-auth-register:focus-visible,
-.nav a.nav-auth-profile:hover,
-.nav a.nav-auth-profile:focus-visible {
-  background:var(--btn-hover);
-  border-color:var(--btn-hover);
-  color:var(--btn-ink);
+.header-account a,
+.mobile-account a {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 10px 15px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  color: var(--ink);
+  background: var(--surface);
+  text-align: center;
+  transition: background .15s, border-color .15s;
 }
-.nav a.nav-auth-register[aria-current="page"],
-.nav a.nav-auth-profile[aria-current="page"] {
-  background:var(--btn-bg);
-  color:var(--btn-ink);
-  outline:2px solid var(--line-strong);
-  outline-offset:2px;
+.header-account .nav-auth-register,
+.header-account .nav-auth-profile,
+.mobile-account .nav-auth-register,
+.mobile-account .nav-auth-profile {
+  border-color: var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-ink);
 }
-/* Account links add width: switch to an accessible drop-down before links wrap. */
-@media (max-width:1120px) {
- .menu-toggle {display:inline-flex;}
- .nav {
-   display:none;
-   position:absolute;
-   left:0; right:0; top:80px;
-   background:var(--surface);
-   padding:12px 24px 20px;
-   border-bottom:1px solid var(--line);
-   flex-direction:column;
-   align-items:stretch;
-   box-shadow:0 14px 20px #0000000a;
-   gap:4px;
- }
- .nav.is-open {display:flex;}
- .nav a {padding:11px 14px;}
- .nav a.nav-auth-login {margin-left:0;}
- .nav a.nav-auth-register,
- .nav a.nav-auth-profile {text-align:center; margin-top:3px;}
+.header-account a:hover,
+.header-account a:focus-visible,
+.mobile-account a:hover,
+.mobile-account a:focus-visible {
+  border-color: var(--line-strong);
+  background: var(--hover);
 }
-@media(max-width:740px) {
- .nav {top:80px;}
+.header-account .nav-auth-register:hover,
+.header-account .nav-auth-register:focus-visible,
+.header-account .nav-auth-profile:hover,
+.header-account .nav-auth-profile:focus-visible,
+.mobile-account .nav-auth-register:hover,
+.mobile-account .nav-auth-register:focus-visible,
+.mobile-account .nav-auth-profile:hover,
+.mobile-account .nav-auth-profile:focus-visible {
+  background: var(--btn-hover);
+  border-color: var(--btn-hover);
+  color: var(--btn-ink);
+}
+.header-account a[aria-current="page"],
+.mobile-account a[aria-current="page"] { outline: 2px solid var(--line-strong); outline-offset: 2px; }
+.header-account [hidden], .mobile-account [hidden] { display: none !important; }
+.mobile-account { display: none; }
+
+/* At tablet widths, keep the account buttons on the right while the main links collapse. */
+@media (max-width: 1120px) {
+  .menu-toggle { display: inline-flex; margin-left: auto; }
+  .nav {
+    display: none;
+    position: absolute;
+    left: 0; right: 0; top: 80px;
+    background: var(--surface);
+    padding: 12px 24px 20px;
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: stretch;
+    box-shadow: 0 14px 20px #0000000a;
+    gap: 4px;
+  }
+  .nav.is-open { display: flex; }
+  .nav a { padding: 11px 14px; }
+}
+
+/* Small screens have insufficient room for full-width account buttons.
+   Keep them grouped at the end of the mobile menu instead. */
+@media (max-width: 640px) {
+  .header-account { display: none; }
+  .mobile-account {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+    padding-top: 14px;
+  }
+  .mobile-account a { display: block; }
 }
