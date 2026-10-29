@@ -273,3 +273,28 @@ if (tournamentLists.length) {
   const target = window.location.hash && document.getElementById(window.location.hash.slice(1));
   if (target) target.scrollIntoView();
 }
+
+// BBA account navigation. Shared by public and account pages.
+(async function bbaAccountNavigation(){
+  const navigation=document.querySelector('#main-nav');
+  if(!navigation || navigation.querySelector('[data-account-link]')) return;
+  const link=document.createElement('a');
+  link.href='login.html';
+  link.textContent='Log in';
+  link.dataset.accountLink='';
+  navigation.appendChild(link);
+  link.addEventListener('click',()=>{
+    navigation.classList.remove('is-open');
+    const menu=document.querySelector('.menu-toggle');
+    menu?.setAttribute('aria-expanded','false');
+    menu?.setAttribute('aria-label','Open menu');
+  });
+  try {
+    const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store'});
+    if(!response.ok) return;
+    const state=await response.json();
+    if(state.authenticated){ link.href='profile.html';link.textContent='My profile'; }
+    const current=location.pathname.split('/').pop();
+    if(current===link.href.split('/').pop())link.setAttribute('aria-current','page');
+  } catch (_) { /* Navigation remains available without the account API. */ }
+})();
