@@ -219,90 +219,90 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .event-meta span {display: inline-flex; align-items: center; gap: 5px;}
 .event-meta svg {width: 13px; height: 13px;}
 
-/* Account actions live at the far right of the header, separate from site navigation. */
-.header-account {
+/* One shared account group: desktop on the right, mobile inside menu. */
+.header-inner > .nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-end;
+}
+.nav .header-account {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
+  margin-left: auto;
 }
-.header-account a,
-.mobile-account a {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.2;
-  text-decoration: none;
-  white-space: nowrap;
-  padding: 10px 15px;
+.nav .header-account a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 7px;
-  color: var(--ink);
   background: var(--surface);
-  text-align: center;
-  transition: background .15s, border-color .15s;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.4;
 }
-.header-account .nav-auth-register,
-.header-account .nav-auth-profile,
-.mobile-account .nav-auth-register,
-.mobile-account .nav-auth-profile {
-  border-color: var(--btn-bg);
+.nav .header-account .nav-auth-register,
+.nav .header-account .nav-auth-profile {
   background: var(--btn-bg);
+  border-color: var(--btn-bg);
   color: var(--btn-ink);
 }
-.header-account a:hover,
-.header-account a:focus-visible,
-.mobile-account a:hover,
-.mobile-account a:focus-visible {
-  border-color: var(--line-strong);
-  background: var(--hover);
-}
-.header-account .nav-auth-register:hover,
-.header-account .nav-auth-register:focus-visible,
-.header-account .nav-auth-profile:hover,
-.header-account .nav-auth-profile:focus-visible,
-.mobile-account .nav-auth-register:hover,
-.mobile-account .nav-auth-register:focus-visible,
-.mobile-account .nav-auth-profile:hover,
-.mobile-account .nav-auth-profile:focus-visible {
+.nav .header-account a:hover,
+.nav .header-account a:focus-visible { background: var(--hover); }
+.nav .header-account .nav-auth-register:hover,
+.nav .header-account .nav-auth-register:focus-visible,
+.nav .header-account .nav-auth-profile:hover,
+.nav .header-account .nav-auth-profile:focus-visible {
   background: var(--btn-hover);
   border-color: var(--btn-hover);
   color: var(--btn-ink);
 }
-.header-account a[aria-current="page"],
-.mobile-account a[aria-current="page"] { outline: 2px solid var(--line-strong); outline-offset: 2px; }
-.header-account [hidden], .mobile-account [hidden] { display: none !important; }
-.mobile-account { display: none; }
+.nav .header-account [hidden] { display: none !important; }
+.nav .header-account a[aria-current="page"] {
+  outline: 2px solid var(--line-strong);
+  outline-offset: 2px;
+}
+.profile-session-status {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 20px 24px;
+  color: var(--muted);
+  max-width: 650px;
+}
+.profile-session-status a { color: var(--ink); text-decoration: underline; }
+.profile-session-status[hidden], .profile-sign-in[hidden] { display: none !important; }
+.profile-sign-in { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
 
-/* At tablet widths, keep the account buttons on the right while the main links collapse. */
 @media (max-width: 1120px) {
   .menu-toggle { display: inline-flex; margin-left: auto; }
-  .nav {
+  .header-inner > .nav {
     display: none;
     position: absolute;
     left: 0; right: 0; top: 80px;
-    background: var(--surface);
-    padding: 12px 24px 20px;
+    padding: 12px 20px 20px;
     border-bottom: 1px solid var(--line);
+    background: var(--surface);
     flex-direction: column;
     align-items: stretch;
     box-shadow: 0 14px 20px #0000000a;
     gap: 4px;
   }
-  .nav.is-open { display: flex; }
-  .nav a { padding: 11px 14px; }
-}
-
-/* Small screens have insufficient room for full-width account buttons.
-   Keep them grouped at the end of the mobile menu instead. */
-@media (max-width: 640px) {
-  .header-account { display: none; }
-  .mobile-account {
-    display: flex;
-    flex-direction: column;
+  .header-inner > .nav.is-open { display: flex; }
+  .header-inner > .nav > a { padding: 11px 14px; }
+  .nav .header-account {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
     gap: 8px;
+    margin: 12px 0 0;
+    padding-top: 12px;
     border-top: 1px solid var(--line);
-    margin-top: 8px;
-    padding-top: 14px;
   }
-  .mobile-account a { display: block; }
+  .nav .header-account .nav-auth-profile { grid-column: 1 / -1; }
+  .nav .header-account a { padding: 12px 14px; }
 }
