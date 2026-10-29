@@ -9,6 +9,16 @@
 <script defer src="countries.js?v=20261029b"></script>
 <script defer src="script.js?v=20261030a"></script><script defer src="settings-client.js?v=20261030a"></script>
 
+<script>
+  // If the separate settings script fails to load, do not show an endless spinner.
+  window.addEventListener('DOMContentLoaded', () => {
+    window.setTimeout(() => {
+      const status=document.querySelector('[data-settings-loading]');
+      if(status && !status.hidden && status.textContent.includes('Loading your account settings'))
+        status.textContent='Unable to load account settings. Refresh this page or log in again.';
+    }, 12000);
+  });
+</script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
