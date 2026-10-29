@@ -296,16 +296,18 @@ if (tournamentLists.length) {
     }
   }
 
-  showState(false);
+  // All account links start hidden in the HTML. Reveal only the correct
+  // links after the session check, so logged-in players never see Register flash.
   try {
     const response = await fetch('/api/auth/me', {
       credentials: 'same-origin',
       cache: 'no-store'
     });
-    if (!response.ok) return;
+    if (!response.ok) throw Error('Account status unavailable');
     const data = await response.json();
     showState(data.authenticated === true);
   } catch (_) {
-    // If the API is unavailable, keep the guest links accessible.
+    // If verification fails, offer guest links rather than hiding navigation.
+    showState(false);
   }
 })();
