@@ -218,3 +218,55 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .event-meta {display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 5px; color: var(--muted); font-size: 12px;}
 .event-meta span {display: inline-flex; align-items: center; gap: 5px;}
 .event-meta svg {width: 13px; height: 13px;}
+
+/* Account actions are visible even before JavaScript checks the session. */
+.nav a[hidden] {display:none !important;}
+.nav a.nav-auth-login {margin-left:6px; color:var(--ink);}
+.nav a.nav-auth-register,
+.nav a.nav-auth-profile {
+  background:var(--btn-bg);
+  color:var(--btn-ink);
+  border:1px solid var(--btn-bg);
+  border-radius:7px;
+  padding:9px 15px;
+  white-space:nowrap;
+}
+.nav a.nav-auth-register:hover,
+.nav a.nav-auth-register:focus-visible,
+.nav a.nav-auth-profile:hover,
+.nav a.nav-auth-profile:focus-visible {
+  background:var(--btn-hover);
+  border-color:var(--btn-hover);
+  color:var(--btn-ink);
+}
+.nav a.nav-auth-register[aria-current="page"],
+.nav a.nav-auth-profile[aria-current="page"] {
+  background:var(--btn-bg);
+  color:var(--btn-ink);
+  outline:2px solid var(--line-strong);
+  outline-offset:2px;
+}
+/* Account links add width: switch to an accessible drop-down before links wrap. */
+@media (max-width:1120px) {
+ .menu-toggle {display:inline-flex;}
+ .nav {
+   display:none;
+   position:absolute;
+   left:0; right:0; top:80px;
+   background:var(--surface);
+   padding:12px 24px 20px;
+   border-bottom:1px solid var(--line);
+   flex-direction:column;
+   align-items:stretch;
+   box-shadow:0 14px 20px #0000000a;
+   gap:4px;
+ }
+ .nav.is-open {display:flex;}
+ .nav a {padding:11px 14px;}
+ .nav a.nav-auth-login {margin-left:0;}
+ .nav a.nav-auth-register,
+ .nav a.nav-auth-profile {text-align:center; margin-top:3px;}
+}
+@media(max-width:740px) {
+ .nav {top:80px;}
+}

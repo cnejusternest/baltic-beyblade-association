@@ -274,27 +274,33 @@ if (tournamentLists.length) {
   if (target) target.scrollIntoView();
 }
 
-// BBA account navigation. Shared by public and account pages.
+// Header account buttons. Guest buttons work before any API request;
+ // after a successful session check they are replaced with My Profile.
 (async function bbaAccountNavigation(){
   const navigation=document.querySelector('#main-nav');
-  if(!navigation || navigation.querySelector('[data-account-link]')) return;
-  const link=document.createElement('a');
-  link.href='login.html';
-  link.textContent='Log in';
-  link.dataset.accountLink='';
-  navigation.appendChild(link);
-  link.addEventListener('click',()=>{
-    navigation.classList.remove('is-open');
-    const menu=document.querySelector('.menu-toggle');
-    menu?.setAttribute('aria-expanded','false');
-    menu?.setAttribute('aria-label','Open menu');
-  });
+  if(!navigation) return;
+
+  const guestLinks=Array.from(navigation.querySelectorAll('[data-auth-guest]'));
+  const profileLink=navigation.querySelector('[data-auth-profile]');
+  const currentPage=location.pathname.split('/').pop() || 'index.html';
+
+  function updateCurrentPage() {
+    for(const link of [...guestLinks, profileLink].filter(Boolean)) {
+      if(link.getAttribute('href')===currentPage && !link.hidden)
+        link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    }
+  }
+
+  updateCurrentPage();
   try {
     const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store'});
     if(!response.ok) return;
     const state=await response.json();
-    if(state.authenticated){ link.href='profile.html';link.textContent='My profile'; }
-    const current=location.pathname.split('/').pop();
-    if(current===link.href.split('/').pop())link.setAttribute('aria-current','page');
-  } catch (_) { /* Navigation remains available without the account API. */ }
+    if(state.authenticated && profileLink) {
+      for(const link of guestLinks)link.hidden=true;
+      profileLink.hidden=false;
+      updateCurrentPage();
+    }
+  } catch (_) { /* Login and Register remain usable if the API is unavailable. */ }
 })();
