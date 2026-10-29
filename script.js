@@ -274,33 +274,38 @@ if (tournamentLists.length) {
   if (target) target.scrollIntoView();
 }
 
-// Header account buttons. Guest buttons work before any API request;
- // after a successful session check they are replaced with My Profile.
-(async function bbaAccountNavigation(){
-  const navigation=document.querySelector('#main-nav');
-  if(!navigation) return;
+// Account links are rendered in both the desktop header and small-screen menu.
+// Only show Profile when the server confirms an authenticated session.
+(async function bbaAccountNavigation() {
+  const header = document.querySelector('.site-header');
+  if (!header) return;
 
-  const guestLinks=Array.from(navigation.querySelectorAll('[data-auth-guest]'));
-  const profileLink=navigation.querySelector('[data-auth-profile]');
-  const currentPage=location.pathname.split('/').pop() || 'index.html';
+  const guestLinks = Array.from(header.querySelectorAll('[data-auth-guest]'));
+  const profileLinks = Array.from(header.querySelectorAll('[data-auth-profile]'));
+  if (!guestLinks.length || !profileLinks.length) return;
 
-  function updateCurrentPage() {
-    for(const link of [...guestLinks, profileLink].filter(Boolean)) {
-      if(link.getAttribute('href')===currentPage && !link.hidden)
-        link.setAttribute('aria-current','page');
-      else link.removeAttribute('aria-current');
+  const currentPage = location.pathname.split('/').pop() || 'index.html';
+  function showState(authenticated) {
+    for (const link of guestLinks) link.hidden = authenticated;
+    for (const link of profileLinks) link.hidden = !authenticated;
+    for (const link of [...guestLinks, ...profileLinks]) {
+      if (!link.hidden && link.getAttribute('href') === currentPage)
+        link.setAttribute('aria-current', 'page');
+      else
+        link.removeAttribute('aria-current');
     }
   }
 
-  updateCurrentPage();
+  showState(false);
   try {
-    const response=await fetch('/api/auth/me',{credentials:'same-origin',cache:'no-store'});
-    if(!response.ok) return;
-    const state=await response.json();
-    if(state.authenticated && profileLink) {
-      for(const link of guestLinks)link.hidden=true;
-      profileLink.hidden=false;
-      updateCurrentPage();
-    }
-  } catch (_) { /* Login and Register remain usable if the API is unavailable. */ }
+    const response = await fetch('/api/auth/me', {
+      credentials: 'same-origin',
+      cache: 'no-store'
+    });
+    if (!response.ok) return;
+    const data = await response.json();
+    showState(data.authenticated === true);
+  } catch (_) {
+    // If the API is unavailable, keep the guest links accessible.
+  }
 })();
