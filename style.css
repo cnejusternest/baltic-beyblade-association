@@ -219,20 +219,19 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .event-meta span {display: inline-flex; align-items: center; gap: 5px;}
 .event-meta svg {width: 13px; height: 13px;}
 
-/* One shared account group: desktop on the right, mobile inside menu. */
+/* Account controls are after the theme button, at the far right of the header. */
 .header-inner > .nav {
   flex: 1 1 auto;
   min-width: 0;
   justify-content: flex-end;
 }
-.nav .header-account {
+.header-inner > .header-account {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
   gap: 8px;
-  margin-left: auto;
 }
-.nav .header-account a {
+.header-inner > .header-account a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -245,25 +244,26 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   font-weight: 600;
   white-space: nowrap;
   line-height: 1.4;
+  text-decoration: none;
 }
-.nav .header-account .nav-auth-register,
-.nav .header-account .nav-auth-profile {
+.header-inner > .header-account .nav-auth-register,
+.header-inner > .header-account .nav-auth-profile {
   background: var(--btn-bg);
   border-color: var(--btn-bg);
   color: var(--btn-ink);
 }
-.nav .header-account a:hover,
-.nav .header-account a:focus-visible { background: var(--hover); }
-.nav .header-account .nav-auth-register:hover,
-.nav .header-account .nav-auth-register:focus-visible,
-.nav .header-account .nav-auth-profile:hover,
-.nav .header-account .nav-auth-profile:focus-visible {
+.header-inner > .header-account a:hover,
+.header-inner > .header-account a:focus-visible { background: var(--hover); }
+.header-inner > .header-account .nav-auth-register:hover,
+.header-inner > .header-account .nav-auth-register:focus-visible,
+.header-inner > .header-account .nav-auth-profile:hover,
+.header-inner > .header-account .nav-auth-profile:focus-visible {
   background: var(--btn-hover);
   border-color: var(--btn-hover);
   color: var(--btn-ink);
 }
-.nav .header-account [hidden] { display: none !important; }
-.nav .header-account a[aria-current="page"] {
+.header-inner > .header-account [hidden] { display: none !important; }
+.header-inner > .header-account a[aria-current="page"] {
   outline: 2px solid var(--line-strong);
   outline-offset: 2px;
 }
@@ -279,6 +279,7 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .profile-session-status[hidden], .profile-sign-in[hidden] { display: none !important; }
 .profile-sign-in { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
 
+/* Main site navigation collapses but the account actions stay beside the theme button. */
 @media (max-width: 1120px) {
   .menu-toggle { display: inline-flex; margin-left: auto; }
   .header-inner > .nav {
@@ -295,14 +296,12 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   }
   .header-inner > .nav.is-open { display: flex; }
   .header-inner > .nav > a { padding: 11px 14px; }
-  .nav .header-account {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 8px;
-    margin: 12px 0 0;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
-  }
-  .nav .header-account .nav-auth-profile { grid-column: 1 / -1; }
-  .nav .header-account a { padding: 12px 14px; }
+}
+/* Compact branding makes space for the buttons on narrow phones. */
+@media (max-width: 640px) {
+  .site-header .brand > span { display: none; }
+  .site-header .brand-icon { width: 38px; height: 38px; }
+  .site-header .header-inner { gap: 8px; }
+  .header-inner > .header-account { gap: 5px; }
+  .header-inner > .header-account a { padding: 9px 10px; font-size: 12px; }
 }
