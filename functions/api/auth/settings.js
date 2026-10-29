@@ -52,6 +52,8 @@ export async function onRequestPost({request,env}) {
      const email=typeof body.email==='string'?body.email.trim().toLowerCase():'';
      if(email.length>254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
        return json({error:'Enter a valid email address.'},400);
+     if(email===account.email.toLowerCase())
+       return json({ok:true,email,emailVerified:!!account.email_verified});
      try {
        await env.DB.prepare('UPDATE users SET email=?,email_verified=0 WHERE id=?')
          .bind(email,account.id).run();
