@@ -229,6 +229,8 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   display: flex;
   flex: 0 0 auto;
   align-items: center;
+  justify-content: flex-end;
+  min-width: 164px;
   gap: 8px;
 }
 .header-inner > .header-account a {
@@ -302,6 +304,6 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   .site-header .brand > span { display: none; }
   .site-header .brand-icon { width: 38px; height: 38px; }
   .site-header .header-inner { gap: 8px; }
-  .header-inner > .header-account { gap: 5px; }
+  .header-inner > .header-account { gap: 5px; min-width: 0; }
   .header-inner > .header-account a { padding: 9px 10px; font-size: 12px; }
 }
