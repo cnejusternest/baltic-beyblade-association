@@ -275,7 +275,7 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 
 /* At tablet widths, keep the account buttons on the right while the main links collapse. */
 @media (max-width: 1120px) {
-  .menu-toggle { display: inline-flex; }
+  .menu-toggle { display: inline-flex; margin-left: auto; }
   .nav {
     display: none;
     position: absolute;
