@@ -8,10 +8,10 @@
   <title>Home | Baltic Beyblade Association</title>
   <link rel="icon" href="assets/bba-logo.png" type="image/png">
   <script>try { if (sessionStorage.getItem('bba-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}</script>
-  <link rel="stylesheet" href="style.css?v=20261030a">
+  <link rel="stylesheet" href="style.css?v=20261030b">
   <script defer src="news-data.js"></script>
   <script defer src="tournaments-data.js"></script>
-  <script defer src="script.js?v=20261030a"></script>
+  <script defer src="script.js?v=20261030b"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -37,7 +37,7 @@
   <div>
     <h1>Baltic Beyblade Association</h1>
     <p class="lead">Beyblade tournaments, rankings and news for Latvia, Lithuania and Estonia.</p>
-    <div class="button-row"><a class="btn" href="tournaments.html">Tournaments</a><a class="btn btn-outline" href="rankings.html">Rankings</a><a class="btn btn-outline" href="register.html">Create account</a></div>
+    <div class="button-row"><a class="btn" href="tournaments.html">Tournaments</a><a class="btn btn-outline" href="rankings.html">Rankings</a><a class="btn btn-outline" href="register.html" data-auth-guest hidden>Create account</a><a class="btn btn-outline" href="profile.html" data-auth-profile hidden>My profile</a></div>
   </div>
   <div class="hero-art"><img src="assets/bba-logo.png" alt="BBA logo"></div>
 </div></section>
