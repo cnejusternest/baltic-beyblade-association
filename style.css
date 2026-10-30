@@ -323,3 +323,7 @@ a.event-row:hover .event-place strong {color: var(--accent);}
   .header-inner > .header-account .nav-auth-settings {width:36px;height:36px;flex-basis:36px;}
   .header-inner > .header-account .nav-auth-settings svg {width:18px;height:18px;}
 }
+
+/* Homepage guest/member CTAs must stay hidden until /api/auth/me finishes. */
+.button-row [data-auth-guest][hidden],
+.button-row [data-auth-profile][hidden] { display: none !important; }
