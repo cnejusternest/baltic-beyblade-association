@@ -1,67 +1,52 @@
-# Baltic Beyblade Association (BBA) Website
-A clean, responsive starter website for the Baltic Beyblade Association, made with plain HTML, CSS, and JavaScript. No build tools or external dependencies are needed.
+# Baltic Beyblade Association — Static Competition Hub
 
-## How to open in VS Code
+BBA is a **fully static** Beyblade coverage website, designed around compact esports-style information panels (news, matches, results, events and rankings). It uses original BBA branding and does not copy HLTV's branding or assets.
 
-1. Extract this ZIP folder.
-2. Open the `bba-website` folder in Visual Studio Code.
-3. Open `index.html`.
-4. Right-click the file and choose **Open with Live Server** (if you have the Live Server extension). Or double-click `index.html` to open it in your browser.
+## Pages
 
-## Site pages
+| File | Purpose |
+|---|---|
+| `index.html` | Three-column editorial homepage |
+| `news.html` | News posts |
+| `matches.html` | Scheduled fixtures |
+| `results.html` | Completed matches |
+| `rankings.html` | Separate Beyblade X / Metal Fight / Burst rankings, with Baltic country filters |
+| `tournaments.html` | Upcoming and past event calendar |
+| `rules.html` | Competition rulebook status |
+| `about.html` | Community overview |
+| `404.html` | Friendly missing-page explanation |
 
-- `index.html` — Homepage (shows the 3 newest news posts)
-- `news.html` — All news posts
-- `news-data.js` — Edit this file to add news posts
-- `tournaments.html` — Tournaments (upcoming and past events)
-- `tournaments-data.js` — Edit this file to add tournaments
-- `rankings.html` — Player rankings for Beyblade X, Metal Fight, and Burst (with country filters)
-- `rankings-data.js` — Edit this file to add real player results to each format
-- `rules.html` — Rules (rulebook not published yet)
-- `about.html` — About BBA
-- `style.css` — All the styling
-- `script.js` — Mobile menu, black/white theme toggle, footer year, news lists, interactive ranking tabs and leaderboards
-- `assets/bba-logo.png` — Your BBA logo
+## Data management (no backend)
 
-## Important
+Edit these repository files and commit changes. Cloudflare Pages deploys automatically from `main`.
 
-The rankings and tournament pages are intentionally empty — there are no made-up players, events or scores. The rules page is a **draft placeholder**, not a final approved BBA rulebook.
+- `news-data.js` → `window.bbaNews`: published news objects with `date`, `title`, `summary`, optionally `body` array.
+- `tournaments-data.js` → `window.bbaTournaments`: `date`, `time`, `name`, `city`, `country` (`LV`/`LT`/`EE`), `format` (`X`/`Metal Fight`/`Burst`), `ranked`, optional `link`.
+- `rankings-data.js` → `window.bbaRankings`: separate `x`, `metal`, `burst` arrays with `name`, `country`, `events`, `points`.
+- `matches-data.js` → `window.bbaMatches`: `upcoming` and `results` arrays, each item `date`, `time` (optional), `format`, `player1`, `player2`, `event` (optional). Completed results require numeric `score1` and `score2`.
 
-This is a static website. Adding automated player accounts, registrations, or a live ranking database will require a backend or other service later.
+All four data sources start empty. **Do not invent tournament results, rankings or news.** Publish verified information only. Rankings are manually maintained; the site makes no claim to calculate official tournament points.
 
-You can host this version on GitHub Pages or any basic static site host.
+The interface is implemented in `site.js` and `style.css`. No frameworks, build tools, dynamic APIs, login cookies, databases or server-side functions are required.
 
-## Adding tournaments
+## Test locally
 
-Open `tournaments-data.js` and add an event to the `window.bbaTournaments` list:
+Open this folder with VS Code Live Server, or run:
 
-```js
-{ date: "2026-11-15", time: "14:00", name: "BBA Riga Open #1", city: "Riga", country: "LV", format: "X", ranked: true, link: "https://..." }
+```bash
+python3 -m http.server 8000
 ```
 
-Events dated today or later appear under upcoming tournaments (soonest first); older ones move to past events automatically. The homepage shows the next 5. `time`, `name` and `link` are optional.
+Then visit `http://localhost:8000/`.
 
-## Adding news
+## Account system removal
 
-Open `news-data.js` and add a post to the `window.bbaNews` list:
+The former account, profile and settings frontend pages **and all Cloudflare Pages Functions** were removed from the published branch. They are preserved in the Git branch:
 
-```js
-{ date: "2026-11-15", title: "Post title", summary: "Short summary.", body: ["Paragraph one.", "Paragraph two."] }
-```
+`backup/auth-site-before-static-redesign-20261031`
 
-Posts are sorted by date automatically, newest first. The homepage shows the 3 newest; `news.html` shows all of them. `body` is optional.
+The **Cloudflare D1 database itself was not deleted or modified**. It is dormant; you may unbind/delete it separately later only if you decide you no longer need the old account data. Do not delete it casually.
 
-## Adding real ranked players
+## Disclaimer
 
-Open `rankings-data.js`. Add entries inside the appropriate array: `x`, `metal`, or `burst`. For example, the structure of a *fictional* entry is:
-
-```js
-{ name: "Example Player", country: "LV", events: 3, points: 120 }
-```
-
-The site sorts by points automatically and gives tied scores the same rank number. Country choices are `LV` (Latvia), `LT` (Lithuania), and `EE` (Estonia). The filter does not change the overall rank position. Only add verified player data after the BBA ranking points system is established.
-
-The tabs can be linked directly using `rankings.html#x`, `rankings.html#metal`, and `rankings.html#burst`.
-
-**Note:** This is a static site; scores and event counts do not update themselves from tournament results. There is no live database.
-BBA authentication configuration updated.
+BBA is an independent fan community serving Latvia, Lithuania and Estonia, not an official sports federation or affiliate of Takara Tomy or Hasbro.
