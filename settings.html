@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Account settings | Baltic Beyblade Association</title>
+<link rel="icon" href="assets/bba-logo.png">
+<script>try{if(sessionStorage.getItem('bba-theme')==='light')document.documentElement.dataset.theme='light';}catch(_){}</script>
+<link rel="stylesheet" href="style.css?v=20261030b"><link rel="stylesheet" href="account-style.css?v=20261030a">
+<script defer src="countries.js?v=20261029b"></script>
+<script defer src="script.js?v=20261030b"></script><script defer src="settings-client.js?v=20261030a"></script>
+
+<script>
+  // If the separate settings script fails to load, do not show an endless spinner.
+  window.addEventListener('DOMContentLoaded', () => {
+    window.setTimeout(() => {
+      const status=document.querySelector('[data-settings-loading]');
+      if(status && !status.hidden && status.textContent.includes('Loading your account settings'))
+        status.textContent='Unable to load account settings. Refresh this page or log in again.';
+    }, 12000);
+  });
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="container header-inner">
+ <a href="index.html" class="brand" aria-label="BBA homepage"><img class="brand-icon" src="assets/bba-logo.png" alt="" width="48" height="48"><span><span class="brand-name">BBA</span><span class="brand-sub">BALTIC BEYBLADE ASSOCIATION</span></span></a>
+ <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="main-nav" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+ <nav class="nav" id="main-nav" aria-label="Main navigation">
+  <a href="index.html">Home</a><a href="news.html">News</a>
+  <a href="tournaments.html">Tournaments</a><a href="rankings.html">Rankings</a>
+  <a href="rules.html">Rules</a><a href="about.html">About</a>
+ 
+  
+ </nav>
+ <button class="theme-toggle" type="button" aria-label="Switch to light theme">
+ <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+ <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+ </button>
+      <div class="header-account" aria-label="Account links"><a class="nav-auth-login" href="login.html" data-auth-guest hidden>Log in</a><a class="nav-auth-register" href="register.html" data-auth-guest hidden>Register</a><a class="nav-auth-profile" href="profile.html" data-auth-profile hidden>Profile</a><a class="nav-auth-settings" href="settings.html" data-auth-settings hidden aria-label="Account settings" title="Account settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5 14 5l3-.4.8 3 2.8 1.4-1.3 2.7 1.3 2.7-2.8 1.4-.8 3-3-.4-2 2.5-2-2.5-3 .4-.8-3-2.8-1.4 1.3-2.7-1.3-2.7 2.8-1.4.8-3L10 5z"/></svg></a></div>
+</div></header>
+<main id="main">
+ <section class="page-hero"><div class="container">
+   <p class="settings-eyebrow"><a href="profile.html">My profile</a> / Settings</p>
+   <h1>Account settings</h1>
+   <p>Manage your BBA account, security and preferences.</p>
+ </div></section>
+ <section class="page-content"><div class="container">
+   <div class="settings-layout" data-settings-root>
+     <aside class="settings-sidebar" aria-label="Settings sections">
+       <a href="#personal">Personal details</a>
+       <a href="#security">Security</a>
+       <a href="#appearance">Appearance</a>
+       <a href="#privacy">Privacy &amp; account</a>
+       <a href="profile.html">Back to profile</a>
+     </aside>
+     <div class="settings-main">
+       <p class="auth-alert" data-settings-error role="alert" aria-live="polite" hidden></p>
+       <div class="profile-session-status" data-settings-loading role="status">Loading your account settings…</div>
+       <div data-settings-content hidden>
+         <section class="settings-panel content-card" id="personal">
+           <h2>Personal details</h2>
+           <p>Update the details associated with your BBA player account.</p>
+           <form data-settings-form="username">
+             <h3>Username</h3>
+             <label for="settings-username">New username</label>
+             <input id="settings-username" name="username" type="text" autocomplete="username" pattern="[A-Za-z0-9_]+" minlength="3" maxlength="24" required>
+             <label for="settings-username-password">Current password to confirm</label>
+             <input id="settings-username-password" name="currentPassword" type="password" autocomplete="current-password" required maxlength="128">
+             <button class="btn btn-outline" type="submit">Save username</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+           <form data-settings-form="email">
+             <h3>Email address</h3>
+             <label for="settings-email">New email address</label>
+             <input id="settings-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+             <p class="auth-small">Changing your email requires your password. Your new address will be marked unverified until email verification is available.</p>
+             <label for="settings-email-password">Current password to confirm</label>
+             <input id="settings-email-password" name="currentPassword" type="password" autocomplete="current-password" required maxlength="128">
+             <button class="btn btn-outline" type="submit">Save email</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+           <form data-settings-form="country">
+             <h3>Display country</h3>
+             <p class="auth-small">Choose any supported country; this does not change tournament eligibility.</p>
+             <label for="settings-country">Country</label>
+             <select id="settings-country" name="country" required></select>
+             <button class="btn btn-outline" type="submit">Save country</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+         </section>
+         <section class="settings-panel content-card" id="security">
+           <h2>Security</h2>
+           <p>Keep your account protected.</p>
+           <form data-settings-form="password">
+             <h3>Change password</h3>
+             <label for="settings-old-password">Current password</label>
+             <input id="settings-old-password" name="currentPassword" type="password" autocomplete="current-password" required maxlength="128">
+             <label for="settings-new-password">New password (at least 12 characters)</label>
+             <input id="settings-new-password" name="newPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+             <label for="settings-confirm-password">Repeat new password</label>
+             <input id="settings-confirm-password" name="confirmNewPassword" type="password" autocomplete="new-password" minlength="12" maxlength="128" required>
+             <p class="auth-small">Changing your password signs you out on every device, including this one.</p>
+             <button class="btn" type="submit">Change password</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+           <form data-settings-form="logout_all">
+             <h3>Sign out everywhere</h3>
+             <p class="auth-small">End all active sessions on every device. You'll need to log in again.</p>
+             <label for="settings-sessions-password">Current password</label>
+             <input id="settings-sessions-password" name="currentPassword" type="password" autocomplete="current-password" required maxlength="128">
+             <button class="btn btn-outline" type="submit">Sign out all devices</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+         </section>
+         <section class="settings-panel content-card" id="appearance">
+           <h2>Appearance</h2>
+           <p>Select the look of the website for this browser tab.</p>
+           <button class="btn btn-outline" type="button" data-settings-theme>Switch to light theme</button>
+         </section>
+         <section class="settings-panel content-card" id="privacy">
+           <h2>Privacy &amp; account</h2>
+           <p>Your email address and account settings are private. Public player profiles are not enabled yet.</p>
+           <div class="settings-warning"><strong>Before public launch</strong><p>Email verification, password recovery and a full privacy policy still need to be built.</p></div>
+           <form data-settings-form="delete_account" class="settings-danger">
+             <h3>Delete your account</h3>
+             <p>This permanently removes your BBA account and signs you out. This action cannot be undone.</p>
+             <label for="settings-delete-password">Current password</label>
+             <input id="settings-delete-password" name="currentPassword" type="password" autocomplete="current-password" required maxlength="128">
+             <label for="settings-delete-confirmation">Type DELETE to confirm</label>
+             <input id="settings-delete-confirmation" name="confirmation" autocomplete="off" spellcheck="false" required pattern="DELETE" placeholder="DELETE">
+             <button class="btn btn-danger" type="submit">Permanently delete account</button>
+             <p class="settings-feedback" data-form-status role="status" hidden></p>
+           </form>
+         </section>
+       </div>
+     </div>
+   </div>
+ </div></section>
+</main>
+<footer class="site-footer"><div class="container"><div class="footer-bottom"><p>© <span id="year">2026</span> Baltic Beyblade Association.</p></div></div></footer>
+</body></html>
