@@ -64,4 +64,11 @@ The site sorts by points automatically and gives tied scores the same rank numbe
 The tabs can be linked directly using `rankings.html#x`, `rankings.html#metal`, and `rankings.html#burst`.
 
 **Note:** This is a static site; scores and event counts do not update themselves from tournament results. There is no live database.
-BBA authentication configuration updated.
+
+## Account features temporarily removed
+
+This version intentionally has **no login, registration, player profiles or account settings**. It retains the original BBA layout and static news, tournaments and rankings.
+
+The complete previous version is preserved in Git branch `backup/profile-system-before-removal-20261102` if accounts are needed again.
+
+Cloudflare Pages Functions and authentication routes are removed from this version. The separate Cloudflare D1 database was **not changed or deleted** and may still hold old test accounts; it is not used by this site.
