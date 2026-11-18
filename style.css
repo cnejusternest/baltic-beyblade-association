@@ -218,3 +218,7 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 .event-meta {display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 5px; color: var(--muted); font-size: 12px;}
 .event-meta span {display: inline-flex; align-items: center; gap: 5px;}
 .event-meta svg {width: 13px; height: 13px;}
+
+/* Contact address on every page, with the existing simple footer style. */
+.footer-bottom .footer-contact a { color: #f8fafb; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.footer-bottom .footer-contact a:hover, .footer-bottom .footer-contact a:focus-visible { color: #c5cbd0; }
