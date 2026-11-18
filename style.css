@@ -222,3 +222,9 @@ a.event-row:hover .event-place strong {color: var(--accent);}
 /* Contact address on every page, with the existing simple footer style. */
 .footer-bottom .footer-contact a { color: #f8fafb; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 .footer-bottom .footer-contact a:hover, .footer-bottom .footer-contact a:focus-visible { color: #c5cbd0; }
+
+/* Keep the existing logo in dark mode and use the outlined version in light mode.
+   Both images occupy the same spot; no extra border or background panel. */
+.theme-logo-light { display: none; }
+:root[data-theme="light"] .theme-logo-dark { display: none; }
+:root[data-theme="light"] .theme-logo-light { display: block; }
